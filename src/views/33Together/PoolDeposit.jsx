@@ -21,7 +21,7 @@ import { changeApproval, poolDeposit } from "../../slices/PoolThunk";
 import { Skeleton } from "@material-ui/lab";
 import { error } from "../../slices/MessagesSlice";
 
-const sohmImg = getTokenImage("sohm");
+const srugImg = getTokenImage("srug");
 
 export const PoolDeposit = props => {
   const dispatch = useDispatch();
@@ -32,8 +32,8 @@ export const PoolDeposit = props => {
   const isAppLoading = useSelector(state => state.app.loading);
   const isMobileScreen = useMediaQuery("(max-width: 513px)");
 
-  const sohmBalance = useSelector(state => {
-    return state.account.balances && state.account.balances.sohm;
+  const srugBalance = useSelector(state => {
+    return state.account.balances && state.account.balances.srug;
   });
 
   const poolBalance = useSelector(state => {
@@ -41,7 +41,7 @@ export const PoolDeposit = props => {
   });
 
   const poolAllowance = useSelector(state => {
-    return state.account.pooling && state.account.pooling.sohmPool;
+    return state.account.pooling && state.account.pooling.srugPool;
   });
 
   const pendingTransactions = useSelector(state => {
@@ -71,7 +71,7 @@ export const PoolDeposit = props => {
   }, [poolAllowance]);
 
   const setMax = () => {
-    const value = parseFloat(sohmBalance);
+    const value = parseFloat(srugBalance);
     setQuantity(value);
     let userBalanceAfterDeposit = poolBalance + value;
 
@@ -116,7 +116,7 @@ export const PoolDeposit = props => {
       ) : (
         <Box className="deposit-container">
           <Box display="flex" alignItems="center" flexDirection={`${isMobileScreen ? "column" : "row"}`}>
-            <FormControl className="ohm-input" variant="outlined" color="primary">
+            <FormControl className="rug-input" variant="outlined" color="primary">
               <InputLabel htmlFor="amount-input"></InputLabel>
               <OutlinedInput
                 id="amount-input"
@@ -127,7 +127,7 @@ export const PoolDeposit = props => {
                 onChange={e => updateDepositQuantity(e)}
                 startAdornment={
                   <InputAdornment position="start">
-                    <div className="logo-holder">{sohmImg}</div>
+                    <div className="logo-holder">{srugImg}</div>
                   </InputAdornment>
                 }
                 labelWidth={0}
@@ -141,7 +141,7 @@ export const PoolDeposit = props => {
               />
             </FormControl>
 
-            {address && hasAllowance("sohm") ? (
+            {address && hasAllowance("srug") ? (
               <Button
                 className="pool-deposit-button"
                 variant="contained"
@@ -158,7 +158,7 @@ export const PoolDeposit = props => {
                 variant="contained"
                 color="primary"
                 disabled={isPendingTxn(pendingTransactions, "approve_pool_together")}
-                onClick={() => onSeekApproval("sohm")}
+                onClick={() => onSeekApproval("srug")}
               >
                 {txnButtonText(pendingTransactions, "approve_pool_together", "Approve")}
               </Button>
@@ -181,7 +181,7 @@ export const PoolDeposit = props => {
                 {isAppLoading ? (
                   <Skeleton width="80px" />
                 ) : (
-                  <>{new Intl.NumberFormat("en-US").format(sohmBalance)} sOHM</>
+                  <>{new Intl.NumberFormat("en-US").format(srugBalance)} sOHM</>
                 )}
               </Typography>
             </div>

@@ -19,21 +19,21 @@ import { Listener, Provider } from "@ethersproject/providers";
 import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
 import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 
-interface OlympusStakingInterface extends ethers.utils.Interface {
+interface RuGenerousStakingInterface extends ethers.utils.Interface {
   functions: {
     "epochLengthInBlocks()": FunctionFragment;
     "initialize(address,address,uint8)": FunctionFragment;
-    "ohm()": FunctionFragment;
-    "ohmToDistributeNextEpoch()": FunctionFragment;
+    "rug()": FunctionFragment;
+    "rugToDistributeNextEpoch()": FunctionFragment;
     "owner()": FunctionFragment;
     "renounceOwnership()": FunctionFragment;
-    "sOHM()": FunctionFragment;
+    "sRUG()": FunctionFragment;
     "setEpochLengthintBlock(uint256)": FunctionFragment;
-    "stakeOHM(uint256)": FunctionFragment;
-    "stakeOHMWithPermit(uint256,uint256,uint8,bytes32,bytes32)": FunctionFragment;
+    "stakeRUG(uint256)": FunctionFragment;
+    "stakeRUGWithPermit(uint256,uint256,uint8,bytes32,bytes32)": FunctionFragment;
     "transferOwnership(address)": FunctionFragment;
-    "unstakeOHM(uint256)": FunctionFragment;
-    "unstakeOHMWithPermit(uint256,uint256,uint8,bytes32,bytes32)": FunctionFragment;
+    "unstakeRUG(uint256)": FunctionFragment;
+    "unstakeRUGWithPermit(uint256,uint256,uint8,bytes32,bytes32)": FunctionFragment;
   };
 
   encodeFunctionData(
@@ -54,17 +54,17 @@ interface OlympusStakingInterface extends ethers.utils.Interface {
     functionFragment: "renounceOwnership",
     values?: undefined
   ): string;
-  encodeFunctionData(functionFragment: "sOHM", values?: undefined): string;
+  encodeFunctionData(functionFragment: "sRUG", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "setEpochLengthintBlock",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "stakeOHM",
+    functionFragment: "stakeRUG",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "stakeOHMWithPermit",
+    functionFragment: "stakeRUGWithPermit",
     values: [BigNumberish, BigNumberish, BigNumberish, BytesLike, BytesLike]
   ): string;
   encodeFunctionData(
@@ -72,11 +72,11 @@ interface OlympusStakingInterface extends ethers.utils.Interface {
     values: [string]
   ): string;
   encodeFunctionData(
-    functionFragment: "unstakeOHM",
+    functionFragment: "unstakeRUG",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "unstakeOHMWithPermit",
+    functionFragment: "unstakeRUGWithPermit",
     values: [BigNumberish, BigNumberish, BigNumberish, BytesLike, BytesLike]
   ): string;
 
@@ -95,23 +95,23 @@ interface OlympusStakingInterface extends ethers.utils.Interface {
     functionFragment: "renounceOwnership",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "sOHM", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "sRUG", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "setEpochLengthintBlock",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "stakeOHM", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "stakeRUG", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "stakeOHMWithPermit",
+    functionFragment: "stakeRUGWithPermit",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "transferOwnership",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "unstakeOHM", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "unstakeRUG", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "unstakeOHMWithPermit",
+    functionFragment: "unstakeRUGWithPermit",
     data: BytesLike
   ): Result;
 
@@ -126,7 +126,7 @@ export type OwnershipTransferredEvent = TypedEvent<
   [string, string] & { previousOwner: string; newOwner: string }
 >;
 
-export class OlympusStaking extends BaseContract {
+export class RuGenerousStaking extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
@@ -167,14 +167,14 @@ export class OlympusStaking extends BaseContract {
     toBlock?: string | number | undefined
   ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>;
 
-  interface: OlympusStakingInterface;
+  interface: RuGenerousStakingInterface;
 
   functions: {
     epochLengthInBlocks(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     initialize(
       ohmTokenAddress_: string,
-      sOHM_: string,
+      sRUG_: string,
       epochLengthInBlocks_: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
@@ -189,19 +189,19 @@ export class OlympusStaking extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    sOHM(overrides?: CallOverrides): Promise<[string]>;
+    sRUG(overrides?: CallOverrides): Promise<[string]>;
 
     setEpochLengthintBlock(
       newEpochLengthInBlocks_: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    stakeOHM(
+    stakeRUG(
       amountToStake_: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    stakeOHMWithPermit(
+    stakeRUGWithPermit(
       amountToStake_: BigNumberish,
       deadline_: BigNumberish,
       v_: BigNumberish,
@@ -215,12 +215,12 @@ export class OlympusStaking extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    unstakeOHM(
+    unstakeRUG(
       amountToWithdraw_: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    unstakeOHMWithPermit(
+    unstakeRUGWithPermit(
       amountToWithdraw_: BigNumberish,
       deadline_: BigNumberish,
       v_: BigNumberish,
@@ -234,7 +234,7 @@ export class OlympusStaking extends BaseContract {
 
   initialize(
     ohmTokenAddress_: string,
-    sOHM_: string,
+    sRUG_: string,
     epochLengthInBlocks_: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
@@ -249,19 +249,19 @@ export class OlympusStaking extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  sOHM(overrides?: CallOverrides): Promise<string>;
+  sRUG(overrides?: CallOverrides): Promise<string>;
 
   setEpochLengthintBlock(
     newEpochLengthInBlocks_: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  stakeOHM(
+  stakeRUG(
     amountToStake_: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  stakeOHMWithPermit(
+  stakeRUGWithPermit(
     amountToStake_: BigNumberish,
     deadline_: BigNumberish,
     v_: BigNumberish,
@@ -275,12 +275,12 @@ export class OlympusStaking extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  unstakeOHM(
+  unstakeRUG(
     amountToWithdraw_: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  unstakeOHMWithPermit(
+  unstakeRUGWithPermit(
     amountToWithdraw_: BigNumberish,
     deadline_: BigNumberish,
     v_: BigNumberish,
@@ -294,7 +294,7 @@ export class OlympusStaking extends BaseContract {
 
     initialize(
       ohmTokenAddress_: string,
-      sOHM_: string,
+      sRUG_: string,
       epochLengthInBlocks_: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
@@ -307,19 +307,19 @@ export class OlympusStaking extends BaseContract {
 
     renounceOwnership(overrides?: CallOverrides): Promise<void>;
 
-    sOHM(overrides?: CallOverrides): Promise<string>;
+    sRUG(overrides?: CallOverrides): Promise<string>;
 
     setEpochLengthintBlock(
       newEpochLengthInBlocks_: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
-    stakeOHM(
+    stakeRUG(
       amountToStake_: BigNumberish,
       overrides?: CallOverrides
     ): Promise<boolean>;
 
-    stakeOHMWithPermit(
+    stakeRUGWithPermit(
       amountToStake_: BigNumberish,
       deadline_: BigNumberish,
       v_: BigNumberish,
@@ -333,12 +333,12 @@ export class OlympusStaking extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    unstakeOHM(
+    unstakeRUG(
       amountToWithdraw_: BigNumberish,
       overrides?: CallOverrides
     ): Promise<boolean>;
 
-    unstakeOHMWithPermit(
+    unstakeRUGWithPermit(
       amountToWithdraw_: BigNumberish,
       deadline_: BigNumberish,
       v_: BigNumberish,
@@ -371,7 +371,7 @@ export class OlympusStaking extends BaseContract {
 
     initialize(
       ohmTokenAddress_: string,
-      sOHM_: string,
+      sRUG_: string,
       epochLengthInBlocks_: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
@@ -386,19 +386,19 @@ export class OlympusStaking extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    sOHM(overrides?: CallOverrides): Promise<BigNumber>;
+    sRUG(overrides?: CallOverrides): Promise<BigNumber>;
 
     setEpochLengthintBlock(
       newEpochLengthInBlocks_: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    stakeOHM(
+    stakeRUG(
       amountToStake_: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    stakeOHMWithPermit(
+    stakeRUGWithPermit(
       amountToStake_: BigNumberish,
       deadline_: BigNumberish,
       v_: BigNumberish,
@@ -412,12 +412,12 @@ export class OlympusStaking extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    unstakeOHM(
+    unstakeRUG(
       amountToWithdraw_: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    unstakeOHMWithPermit(
+    unstakeRUGWithPermit(
       amountToWithdraw_: BigNumberish,
       deadline_: BigNumberish,
       v_: BigNumberish,
@@ -434,7 +434,7 @@ export class OlympusStaking extends BaseContract {
 
     initialize(
       ohmTokenAddress_: string,
-      sOHM_: string,
+      sRUG_: string,
       epochLengthInBlocks_: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
@@ -451,19 +451,19 @@ export class OlympusStaking extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    sOHM(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    sRUG(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     setEpochLengthintBlock(
       newEpochLengthInBlocks_: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    stakeOHM(
+    stakeRUG(
       amountToStake_: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    stakeOHMWithPermit(
+    stakeRUGWithPermit(
       amountToStake_: BigNumberish,
       deadline_: BigNumberish,
       v_: BigNumberish,
@@ -477,12 +477,12 @@ export class OlympusStaking extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    unstakeOHM(
+    unstakeRUG(
       amountToWithdraw_: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    unstakeOHMWithPermit(
+    unstakeRUGWithPermit(
       amountToWithdraw_: BigNumberish,
       deadline_: BigNumberish,
       v_: BigNumberish,

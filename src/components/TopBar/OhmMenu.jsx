@@ -4,18 +4,18 @@ import { NavLink } from "react-router-dom";
 import { Link, SvgIcon, Popper, Button, Paper, Typography, Divider, Box, Fade, Slide } from "@material-ui/core";
 import { ReactComponent as InfoIcon } from "../../assets/icons/info-fill.svg";
 import { ReactComponent as ArrowUpIcon } from "../../assets/icons/arrow-up.svg";
-import { ReactComponent as sOhmTokenImg } from "../../assets/tokens/token_sOHM.svg";
-import { ReactComponent as wsOhmTokenImg } from "../../assets/tokens/token_wsOHM.svg";
-import { ReactComponent as ohmTokenImg } from "../../assets/tokens/token_OHM.svg";
+import { ReactComponent as sOhmTokenImg } from "../../assets/tokens/token_sRUG.svg";
+import { ReactComponent as wsOhmTokenImg } from "../../assets/tokens/token_wsRUG.svg";
+import { ReactComponent as ohmTokenImg } from "../../assets/tokens/token_RUG.svg";
 import { ReactComponent as t33TokenImg } from "../../assets/tokens/token_33T.svg";
 
 import "./ohmmenu.scss";
 import { dai, frax } from "src/helpers/AllBonds";
 import { useWeb3Context } from "../../hooks/web3Context";
 
-import OhmImg from "src/assets/tokens/token_OHM.svg";
-import SOhmImg from "src/assets/tokens/token_sOHM.svg";
-import WsOhmImg from "src/assets/tokens/token_wsOHM.svg";
+import OhmImg from "src/assets/tokens/token_RUG.svg";
+import SOhmImg from "src/assets/tokens/token_sRUG.svg";
+import WsOhmImg from "src/assets/tokens/token_wsRUG.svg";
 import token33tImg from "src/assets/tokens/token_33T.svg";
 
 const addTokenToWallet = (tokenSymbol, tokenAddress) => async () => {
@@ -24,13 +24,13 @@ const addTokenToWallet = (tokenSymbol, tokenAddress) => async () => {
     let tokenPath;
     let tokenDecimals = TOKEN_DECIMALS;
     switch (tokenSymbol) {
-      case "OHM":
+      case "RUG":
         tokenPath = OhmImg;
         break;
       case "33T":
         tokenPath = token33tImg;
         break;
-      case "wsOHM":
+      case "wsRUG":
         tokenPath = WsOhmImg;
         tokenDecimals = 18;
         break;
@@ -65,10 +65,10 @@ function OhmMenu() {
 
   const networkID = chainID;
 
-  const SOHM_ADDRESS = addresses[networkID].SOHM_ADDRESS;
-  const OHM_ADDRESS = addresses[networkID].OHM_ADDRESS;
+  const SRUG_ADDRESS = addresses[networkID].SRUG_ADDRESS;
+  const RUG_ADDRESS = addresses[networkID].RUG_ADDRESS;
   const PT_TOKEN_ADDRESS = addresses[networkID].PT_TOKEN_ADDRESS;
-  const WSOHM_ADDRESS = addresses[networkID].WSOHM_ADDRESS;
+  const WSRUG_ADDRESS = addresses[networkID].WSRUG_ADDRESS;
   const handleClick = event => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
   };
@@ -84,9 +84,9 @@ function OhmMenu() {
       onMouseLeave={e => handleClick(e)}
       id="ohm-menu-button-hover"
     >
-      <Button id="ohm-menu-button" size="large" variant="contained" color="secondary" title="OHM" aria-describedby={id}>
+      <Button id="ohm-menu-button" size="large" variant="contained" color="secondary" title="RUG" aria-describedby={id}>
         <SvgIcon component={InfoIcon} color="primary" />
-        <Typography>OHM</Typography>
+        <Typography>RUG</Typography>
       </Button>
 
       <Popper id={id} open={open} anchorEl={anchorEl} placement="bottom-start" transition>
@@ -96,7 +96,7 @@ function OhmMenu() {
               <Paper className="ohm-menu" elevation={1}>
                 <Box component="div" className="buy-tokens">
                   <Link
-                    href={`https://app.sushi.com/swap?inputCurrency=${daiAddress}&outputCurrency=${OHM_ADDRESS}`}
+                    href={`https://app.sushi.com/swap?inputCurrency=${daiAddress}&outputCurrency=${RUG_ADDRESS}`}
                     target="_blank"
                     rel="noreferrer"
                   >
@@ -108,7 +108,7 @@ function OhmMenu() {
                   </Link>
 
                   <Link
-                    href={`https://app.uniswap.org/#/swap?inputCurrency=${fraxAddress}&outputCurrency=${OHM_ADDRESS}`}
+                    href={`https://app.uniswap.org/#/swap?inputCurrency=${fraxAddress}&outputCurrency=${RUG_ADDRESS}`}
                     target="_blank"
                     rel="noreferrer"
                   >
@@ -121,14 +121,14 @@ function OhmMenu() {
 
                   <Link component={NavLink} to="/wrap" style={{ textDecoration: "none" }}>
                     <Button size="large" variant="contained" color="secondary" fullWidth>
-                      <Typography align="left">Wrap sOHM</Typography>
+                      <Typography align="left">Wrap sRUG</Typography>
                     </Button>
                   </Link>
                 </Box>
 
                 <Box component="div" className="data-links">
                   <Divider color="secondary" className="less-margin" />
-                  <Link href={`https://dune.xyz/shadow/Olympus-(OHM)`} target="_blank" rel="noreferrer">
+                  <Link href={`https://dune.xyz/shadow/RuGenerous-(RUG)`} target="_blank" rel="noreferrer">
                     <Button size="large" variant="contained" color="secondary" fullWidth>
                       <Typography align="left">
                         Shadow's Dune Dashboard <SvgIcon component={ArrowUpIcon} htmlColor="#A3A3A3" />
@@ -142,38 +142,38 @@ function OhmMenu() {
                     <Divider color="secondary" />
                     <p>ADD TOKEN TO WALLET</p>
                     <Box display="flex" flexDirection="row" justifyContent="space-between">
-                      {OHM_ADDRESS && (
-                        <Button variant="contained" color="secondary" onClick={addTokenToWallet("OHM", OHM_ADDRESS)}>
+                      {RUG_ADDRESS && (
+                        <Button variant="contained" color="secondary" onClick={addTokenToWallet("RUG", RUG_ADDRESS)}>
                           <SvgIcon
                             component={ohmTokenImg}
                             viewBox="0 0 32 32"
                             style={{ height: "25px", width: "25px" }}
                           />
-                          <Typography variant="body1">OHM</Typography>
+                          <Typography variant="body1">RUG</Typography>
                         </Button>
                       )}
-                      {SOHM_ADDRESS && (
-                        <Button variant="contained" color="secondary" onClick={addTokenToWallet("sOHM", SOHM_ADDRESS)}>
+                      {SRUG_ADDRESS && (
+                        <Button variant="contained" color="secondary" onClick={addTokenToWallet("sRUG", SRUG_ADDRESS)}>
                           <SvgIcon
                             component={sOhmTokenImg}
                             viewBox="0 0 100 100"
                             style={{ height: "25px", width: "25px" }}
                           />
-                          <Typography variant="body1">sOHM</Typography>
+                          <Typography variant="body1">sRUG</Typography>
                         </Button>
                       )}
-                      {WSOHM_ADDRESS && (
+                      {WSRUG_ADDRESS && (
                         <Button
                           variant="contained"
                           color="secondary"
-                          onClick={addTokenToWallet("wsOHM", WSOHM_ADDRESS)}
+                          onClick={addTokenToWallet("wsRUG", WSRUG_ADDRESS)}
                         >
                           <SvgIcon
                             component={wsOhmTokenImg}
                             viewBox="0 0 180 180"
                             style={{ height: "25px", width: "25px" }}
                           />
-                          <Typography variant="body1">wsOHM</Typography>
+                          <Typography variant="body1">wsRUG</Typography>
                         </Button>
                       )}
                       {PT_TOKEN_ADDRESS && (

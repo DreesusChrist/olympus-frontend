@@ -5,8 +5,8 @@
   align-items: center;
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
-  background-color: #55555555;
-  .ohm-popover {
+  background-color: #9b21c055;
+  .rug-popover {
     max-width: 500px;
     display: flex;
     flex-direction: column;
@@ -23,7 +23,7 @@
       margin: 10px;
     }
   }
-  .mobile .ohm-popover {
+  .mobile .rug-popover {
     max-width: 400px;
   }
 }

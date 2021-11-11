@@ -148,7 +148,7 @@ function BondPurchase({ bond, slippage, recipientAddress }) {
                     </em>
                   </div>
                 ) : (
-                  <FormControl className="ohm-input" variant="outlined" color="primary" fullWidth>
+                  <FormControl className="rug-input" variant="outlined" color="primary" fullWidth>
                     <InputLabel htmlFor="outlined-adornment-amount">Amount</InputLabel>
                     <OutlinedInput
                       id="outlined-adornment-amount"

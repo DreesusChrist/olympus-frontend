@@ -19,10 +19,10 @@ import { Listener, Provider } from "@ethersproject/providers";
 import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
 import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 
-interface OhmFraxContractInterface extends ethers.utils.Interface {
+interface RugFraxContractInterface extends ethers.utils.Interface {
   functions: {
     "DAO()": FunctionFragment;
-    "OHM()": FunctionFragment;
+    "RUG()": FunctionFragment;
     "adjustment()": FunctionFragment;
     "bondCalculator()": FunctionFragment;
     "bondInfo(address)": FunctionFragment;
@@ -59,7 +59,7 @@ interface OhmFraxContractInterface extends ethers.utils.Interface {
   };
 
   encodeFunctionData(functionFragment: "DAO", values?: undefined): string;
-  encodeFunctionData(functionFragment: "OHM", values?: undefined): string;
+  encodeFunctionData(functionFragment: "RUG", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "adjustment",
     values?: undefined
@@ -163,7 +163,7 @@ interface OhmFraxContractInterface extends ethers.utils.Interface {
   encodeFunctionData(functionFragment: "useHelper", values?: undefined): string;
 
   decodeFunctionResult(functionFragment: "DAO", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "OHM", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "RUG", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "adjustment", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "bondCalculator",
@@ -302,7 +302,7 @@ export type OwnershipPushedEvent = TypedEvent<
   [string, string] & { previousOwner: string; newOwner: string }
 >;
 
-export class OhmFraxContract extends BaseContract {
+export class RugFraxContract extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
@@ -343,12 +343,12 @@ export class OhmFraxContract extends BaseContract {
     toBlock?: string | number | undefined
   ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>;
 
-  interface: OhmFraxContractInterface;
+  interface: RugFraxContractInterface;
 
   functions: {
     DAO(overrides?: CallOverrides): Promise<[string]>;
 
-    OHM(overrides?: CallOverrides): Promise<[string]>;
+    RUG(overrides?: CallOverrides): Promise<[string]>;
 
     adjustment(
       overrides?: CallOverrides
@@ -509,7 +509,7 @@ export class OhmFraxContract extends BaseContract {
 
   DAO(overrides?: CallOverrides): Promise<string>;
 
-  OHM(overrides?: CallOverrides): Promise<string>;
+  RUG(overrides?: CallOverrides): Promise<string>;
 
   adjustment(
     overrides?: CallOverrides
@@ -662,7 +662,7 @@ export class OhmFraxContract extends BaseContract {
   callStatic: {
     DAO(overrides?: CallOverrides): Promise<string>;
 
-    OHM(overrides?: CallOverrides): Promise<string>;
+    RUG(overrides?: CallOverrides): Promise<string>;
 
     adjustment(
       overrides?: CallOverrides
@@ -939,7 +939,7 @@ export class OhmFraxContract extends BaseContract {
   estimateGas: {
     DAO(overrides?: CallOverrides): Promise<BigNumber>;
 
-    OHM(overrides?: CallOverrides): Promise<BigNumber>;
+    RUG(overrides?: CallOverrides): Promise<BigNumber>;
 
     adjustment(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1062,7 +1062,7 @@ export class OhmFraxContract extends BaseContract {
   populateTransaction: {
     DAO(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    OHM(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    RUG(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     adjustment(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 

@@ -64,7 +64,7 @@ function ChooseBond() {
       {!isAccountLoading && !isEmpty(accountBonds) && <ClaimBonds activeBonds={accountBonds} />}
 
       <Zoom in={true}>
-        <Paper className="ohm-card">
+        <Paper className="rug-card">
           <Box className="card-header">
             <Typography variant="h5">Bond (1,1)</Typography>
           </Box>
@@ -90,7 +90,7 @@ function ChooseBond() {
               </Box>
             </Grid>
 
-            <Grid item xs={6} className={`ohm-price`}>
+            <Grid item xs={6} className={`rug-price`}>
               <Box textAlign={`${isVerySmallScreen ? "right" : "center"}`}>
                 <Typography variant="h5" color="textSecondary">
                   OHM Price
@@ -128,7 +128,7 @@ function ChooseBond() {
       </Zoom>
 
       {isSmallScreen && (
-        <Box className="ohm-card-container">
+        <Box className="rug-card-container">
           <Grid container item spacing={2}>
             {bonds.map(bond => (
               <Grid item xs={12} key={bond.name}>

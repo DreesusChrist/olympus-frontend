@@ -19,9 +19,9 @@ import { Listener, Provider } from "@ethersproject/providers";
 import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
 import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 
-interface OlympusStakingv2Interface extends ethers.utils.Interface {
+interface RuGenerousStakingv2Interface extends ethers.utils.Interface {
   functions: {
-    "OHM()": FunctionFragment;
+    "RUG()": FunctionFragment;
     "claim(address)": FunctionFragment;
     "contractBalance()": FunctionFragment;
     "distributor()": FunctionFragment;
@@ -36,7 +36,7 @@ interface OlympusStakingv2Interface extends ethers.utils.Interface {
     "rebase()": FunctionFragment;
     "renounceManagement()": FunctionFragment;
     "returnLockBonus(uint256)": FunctionFragment;
-    "sOHM()": FunctionFragment;
+    "sRUG()": FunctionFragment;
     "setContract(uint8,address)": FunctionFragment;
     "setWarmup(uint256)": FunctionFragment;
     "stake(uint256,address)": FunctionFragment;
@@ -48,7 +48,7 @@ interface OlympusStakingv2Interface extends ethers.utils.Interface {
     "warmupPeriod()": FunctionFragment;
   };
 
-  encodeFunctionData(functionFragment: "OHM", values?: undefined): string;
+  encodeFunctionData(functionFragment: "RUG", values?: undefined): string;
   encodeFunctionData(functionFragment: "claim", values: [string]): string;
   encodeFunctionData(
     functionFragment: "contractBalance",
@@ -84,7 +84,7 @@ interface OlympusStakingv2Interface extends ethers.utils.Interface {
     functionFragment: "returnLockBonus",
     values: [BigNumberish]
   ): string;
-  encodeFunctionData(functionFragment: "sOHM", values?: undefined): string;
+  encodeFunctionData(functionFragment: "sRUG", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "setContract",
     values: [BigNumberish, string]
@@ -119,7 +119,7 @@ interface OlympusStakingv2Interface extends ethers.utils.Interface {
     values?: undefined
   ): string;
 
-  decodeFunctionResult(functionFragment: "OHM", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "RUG", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "claim", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "contractBalance",
@@ -155,7 +155,7 @@ interface OlympusStakingv2Interface extends ethers.utils.Interface {
     functionFragment: "returnLockBonus",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "sOHM", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "sRUG", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "setContract",
     data: BytesLike
@@ -195,7 +195,7 @@ export type OwnershipPushedEvent = TypedEvent<
   [string, string] & { previousOwner: string; newOwner: string }
 >;
 
-export class OlympusStakingv2 extends BaseContract {
+export class RuGenerousStakingv2 extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
@@ -236,10 +236,10 @@ export class OlympusStakingv2 extends BaseContract {
     toBlock?: string | number | undefined
   ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>;
 
-  interface: OlympusStakingv2Interface;
+  interface: RuGenerousStakingv2Interface;
 
   functions: {
-    OHM(overrides?: CallOverrides): Promise<[string]>;
+    RUG(overrides?: CallOverrides): Promise<[string]>;
 
     claim(
       _recipient: string,
@@ -298,7 +298,7 @@ export class OlympusStakingv2 extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    sOHM(overrides?: CallOverrides): Promise<[string]>;
+    sRUG(overrides?: CallOverrides): Promise<[string]>;
 
     setContract(
       _contract: BigNumberish,
@@ -346,7 +346,7 @@ export class OlympusStakingv2 extends BaseContract {
     warmupPeriod(overrides?: CallOverrides): Promise<[BigNumber]>;
   };
 
-  OHM(overrides?: CallOverrides): Promise<string>;
+  RUG(overrides?: CallOverrides): Promise<string>;
 
   claim(
     _recipient: string,
@@ -405,7 +405,7 @@ export class OlympusStakingv2 extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  sOHM(overrides?: CallOverrides): Promise<string>;
+  sRUG(overrides?: CallOverrides): Promise<string>;
 
   setContract(
     _contract: BigNumberish,
@@ -453,7 +453,7 @@ export class OlympusStakingv2 extends BaseContract {
   warmupPeriod(overrides?: CallOverrides): Promise<BigNumber>;
 
   callStatic: {
-    OHM(overrides?: CallOverrides): Promise<string>;
+    RUG(overrides?: CallOverrides): Promise<string>;
 
     claim(_recipient: string, overrides?: CallOverrides): Promise<void>;
 
@@ -498,7 +498,7 @@ export class OlympusStakingv2 extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    sOHM(overrides?: CallOverrides): Promise<string>;
+    sRUG(overrides?: CallOverrides): Promise<string>;
 
     setContract(
       _contract: BigNumberish,
@@ -579,7 +579,7 @@ export class OlympusStakingv2 extends BaseContract {
   };
 
   estimateGas: {
-    OHM(overrides?: CallOverrides): Promise<BigNumber>;
+    RUG(overrides?: CallOverrides): Promise<BigNumber>;
 
     claim(
       _recipient: string,
@@ -629,7 +629,7 @@ export class OlympusStakingv2 extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    sOHM(overrides?: CallOverrides): Promise<BigNumber>;
+    sRUG(overrides?: CallOverrides): Promise<BigNumber>;
 
     setContract(
       _contract: BigNumberish,
@@ -668,7 +668,7 @@ export class OlympusStakingv2 extends BaseContract {
   };
 
   populateTransaction: {
-    OHM(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    RUG(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     claim(
       _recipient: string,
@@ -718,7 +718,7 @@ export class OlympusStakingv2 extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    sOHM(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    sRUG(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     setContract(
       _contract: BigNumberish,

@@ -4,7 +4,7 @@
         "inputs": [
             {
                 "internalType": "address",
-                "name": "_OHM",
+                "name": "_RUG",
                 "type": "address"
             },
             {
@@ -196,7 +196,7 @@
     },
     {
         "inputs": [],
-        "name": "OHM",
+        "name": "RUG",
         "outputs": [
             {
                 "internalType": "address",
@@ -647,7 +647,7 @@
     {
         "inputs": [
             {
-                "internalType": "enum OlympusBondDepository.PARAMETER",
+                "internalType": "enum RuGenerousBondDepository.PARAMETER",
                 "name": "_parameter",
                 "type": "uint8"
             },

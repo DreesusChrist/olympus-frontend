@@ -19,43 +19,36 @@ import { Listener, Provider } from "@ethersproject/providers";
 import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
 import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 
-interface OhmDaiInterface extends ethers.utils.Interface {
+interface SRUGInterface extends ethers.utils.Interface {
   functions: {
     "DOMAIN_SEPARATOR()": FunctionFragment;
-    "MINIMUM_LIQUIDITY()": FunctionFragment;
     "PERMIT_TYPEHASH()": FunctionFragment;
     "allowance(address,address)": FunctionFragment;
     "approve(address,uint256)": FunctionFragment;
     "balanceOf(address)": FunctionFragment;
-    "burn(address)": FunctionFragment;
+    "circulatingSupply()": FunctionFragment;
     "decimals()": FunctionFragment;
-    "factory()": FunctionFragment;
-    "getReserves()": FunctionFragment;
-    "initialize(address,address)": FunctionFragment;
-    "kLast()": FunctionFragment;
-    "mint(address)": FunctionFragment;
+    "decreaseAllowance(address,uint256)": FunctionFragment;
+    "increaseAllowance(address,uint256)": FunctionFragment;
+    "monetaryPolicy()": FunctionFragment;
     "name()": FunctionFragment;
     "nonces(address)": FunctionFragment;
+    "owner()": FunctionFragment;
     "permit(address,address,uint256,uint256,uint8,bytes32,bytes32)": FunctionFragment;
-    "price0CumulativeLast()": FunctionFragment;
-    "price1CumulativeLast()": FunctionFragment;
-    "skim(address)": FunctionFragment;
-    "swap(uint256,uint256,address,bytes)": FunctionFragment;
+    "rebase(uint256)": FunctionFragment;
+    "renounceOwnership()": FunctionFragment;
+    "setMonetaryPolicy(address)": FunctionFragment;
+    "setStakingContract(address)": FunctionFragment;
+    "stakingContract()": FunctionFragment;
     "symbol()": FunctionFragment;
-    "sync()": FunctionFragment;
-    "token0()": FunctionFragment;
-    "token1()": FunctionFragment;
     "totalSupply()": FunctionFragment;
     "transfer(address,uint256)": FunctionFragment;
     "transferFrom(address,address,uint256)": FunctionFragment;
+    "transferOwnership(address)": FunctionFragment;
   };
 
   encodeFunctionData(
     functionFragment: "DOMAIN_SEPARATOR",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "MINIMUM_LIQUIDITY",
     values?: undefined
   ): string;
   encodeFunctionData(
@@ -71,21 +64,26 @@ interface OhmDaiInterface extends ethers.utils.Interface {
     values: [string, BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "balanceOf", values: [string]): string;
-  encodeFunctionData(functionFragment: "burn", values: [string]): string;
-  encodeFunctionData(functionFragment: "decimals", values?: undefined): string;
-  encodeFunctionData(functionFragment: "factory", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "getReserves",
+    functionFragment: "circulatingSupply",
     values?: undefined
   ): string;
+  encodeFunctionData(functionFragment: "decimals", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "initialize",
-    values: [string, string]
+    functionFragment: "decreaseAllowance",
+    values: [string, BigNumberish]
   ): string;
-  encodeFunctionData(functionFragment: "kLast", values?: undefined): string;
-  encodeFunctionData(functionFragment: "mint", values: [string]): string;
+  encodeFunctionData(
+    functionFragment: "increaseAllowance",
+    values: [string, BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "monetaryPolicy",
+    values?: undefined
+  ): string;
   encodeFunctionData(functionFragment: "name", values?: undefined): string;
   encodeFunctionData(functionFragment: "nonces", values: [string]): string;
+  encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "permit",
     values: [
@@ -99,22 +97,26 @@ interface OhmDaiInterface extends ethers.utils.Interface {
     ]
   ): string;
   encodeFunctionData(
-    functionFragment: "price0CumulativeLast",
+    functionFragment: "rebase",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "renounceOwnership",
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "price1CumulativeLast",
-    values?: undefined
+    functionFragment: "setMonetaryPolicy",
+    values: [string]
   ): string;
-  encodeFunctionData(functionFragment: "skim", values: [string]): string;
   encodeFunctionData(
-    functionFragment: "swap",
-    values: [BigNumberish, BigNumberish, string, BytesLike]
+    functionFragment: "setStakingContract",
+    values: [string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "stakingContract",
+    values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "symbol", values?: undefined): string;
-  encodeFunctionData(functionFragment: "sync", values?: undefined): string;
-  encodeFunctionData(functionFragment: "token0", values?: undefined): string;
-  encodeFunctionData(functionFragment: "token1", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "totalSupply",
     values?: undefined
@@ -127,13 +129,13 @@ interface OhmDaiInterface extends ethers.utils.Interface {
     functionFragment: "transferFrom",
     values: [string, string, BigNumberish]
   ): string;
+  encodeFunctionData(
+    functionFragment: "transferOwnership",
+    values: [string]
+  ): string;
 
   decodeFunctionResult(
     functionFragment: "DOMAIN_SEPARATOR",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "MINIMUM_LIQUIDITY",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -143,33 +145,45 @@ interface OhmDaiInterface extends ethers.utils.Interface {
   decodeFunctionResult(functionFragment: "allowance", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "approve", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "burn", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "decimals", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "factory", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "getReserves",
+    functionFragment: "circulatingSupply",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "initialize", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "kLast", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "mint", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "decimals", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "decreaseAllowance",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "increaseAllowance",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "monetaryPolicy",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "name", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "nonces", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "permit", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "rebase", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "price0CumulativeLast",
+    functionFragment: "renounceOwnership",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "price1CumulativeLast",
+    functionFragment: "setMonetaryPolicy",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "skim", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "swap", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "setStakingContract",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "stakingContract",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "symbol", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "sync", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "token0", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "token1", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "totalSupply",
     data: BytesLike
@@ -179,21 +193,23 @@ interface OhmDaiInterface extends ethers.utils.Interface {
     functionFragment: "transferFrom",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(
+    functionFragment: "transferOwnership",
+    data: BytesLike
+  ): Result;
 
   events: {
     "Approval(address,address,uint256)": EventFragment;
-    "Burn(address,uint256,uint256,address)": EventFragment;
-    "Mint(address,uint256,uint256)": EventFragment;
-    "Swap(address,uint256,uint256,uint256,uint256,address)": EventFragment;
-    "Sync(uint112,uint112)": EventFragment;
+    "LogMonetaryPolicyUpdated(address)": EventFragment;
+    "LogRebase(uint256,uint256)": EventFragment;
+    "OwnershipTransferred(address,address)": EventFragment;
     "Transfer(address,address,uint256)": EventFragment;
   };
 
   getEvent(nameOrSignatureOrTopic: "Approval"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "Burn"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "Mint"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "Swap"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "Sync"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "LogMonetaryPolicyUpdated"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "LogRebase"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "OwnershipTransferred"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Transfer"): EventFragment;
 }
 
@@ -205,43 +221,23 @@ export type ApprovalEvent = TypedEvent<
   }
 >;
 
-export type BurnEvent = TypedEvent<
-  [string, BigNumber, BigNumber, string] & {
-    sender: string;
-    amount0: BigNumber;
-    amount1: BigNumber;
-    to: string;
-  }
+export type LogMonetaryPolicyUpdatedEvent = TypedEvent<
+  [string] & { monetaryPolicy: string }
 >;
 
-export type MintEvent = TypedEvent<
-  [string, BigNumber, BigNumber] & {
-    sender: string;
-    amount0: BigNumber;
-    amount1: BigNumber;
-  }
+export type LogRebaseEvent = TypedEvent<
+  [BigNumber, BigNumber] & { epoch: BigNumber; totalSupply: BigNumber }
 >;
 
-export type SwapEvent = TypedEvent<
-  [string, BigNumber, BigNumber, BigNumber, BigNumber, string] & {
-    sender: string;
-    amount0In: BigNumber;
-    amount1In: BigNumber;
-    amount0Out: BigNumber;
-    amount1Out: BigNumber;
-    to: string;
-  }
->;
-
-export type SyncEvent = TypedEvent<
-  [BigNumber, BigNumber] & { reserve0: BigNumber; reserve1: BigNumber }
+export type OwnershipTransferredEvent = TypedEvent<
+  [string, string] & { previousOwner: string; newOwner: string }
 >;
 
 export type TransferEvent = TypedEvent<
   [string, string, BigNumber] & { from: string; to: string; value: BigNumber }
 >;
 
-export class OhmDai extends BaseContract {
+export class SRUG extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
@@ -282,18 +278,16 @@ export class OhmDai extends BaseContract {
     toBlock?: string | number | undefined
   ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>;
 
-  interface: OhmDaiInterface;
+  interface: SRUGInterface;
 
   functions: {
     DOMAIN_SEPARATOR(overrides?: CallOverrides): Promise<[string]>;
 
-    MINIMUM_LIQUIDITY(overrides?: CallOverrides): Promise<[BigNumber]>;
-
     PERMIT_TYPEHASH(overrides?: CallOverrides): Promise<[string]>;
 
     allowance(
-      arg0: string,
-      arg1: string,
+      owner_: string,
+      spender: string,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
@@ -303,48 +297,36 @@ export class OhmDai extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    balanceOf(arg0: string, overrides?: CallOverrides): Promise<[BigNumber]>;
+    balanceOf(who: string, overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    burn(
-      to: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    circulatingSupply(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     decimals(overrides?: CallOverrides): Promise<[number]>;
 
-    factory(overrides?: CallOverrides): Promise<[string]>;
-
-    getReserves(
-      overrides?: CallOverrides
-    ): Promise<
-      [BigNumber, BigNumber, number] & {
-        _reserve0: BigNumber;
-        _reserve1: BigNumber;
-        _blockTimestampLast: number;
-      }
-    >;
-
-    initialize(
-      _token0: string,
-      _token1: string,
+    decreaseAllowance(
+      spender: string,
+      subtractedValue: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    kLast(overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    mint(
-      to: string,
+    increaseAllowance(
+      spender: string,
+      addedValue: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
+
+    monetaryPolicy(overrides?: CallOverrides): Promise<[string]>;
 
     name(overrides?: CallOverrides): Promise<[string]>;
 
-    nonces(arg0: string, overrides?: CallOverrides): Promise<[BigNumber]>;
+    nonces(owner: string, overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    owner(overrides?: CallOverrides): Promise<[string]>;
 
     permit(
       owner: string,
       spender: string,
-      value: BigNumberish,
+      amount: BigNumberish,
       deadline: BigNumberish,
       v: BigNumberish,
       r: BytesLike,
@@ -352,32 +334,28 @@ export class OhmDai extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    price0CumulativeLast(overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    price1CumulativeLast(overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    skim(
-      to: string,
+    rebase(
+      olyProfit: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    swap(
-      amount0Out: BigNumberish,
-      amount1Out: BigNumberish,
-      to: string,
-      data: BytesLike,
+    renounceOwnership(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
+
+    setMonetaryPolicy(
+      monetaryPolicy_: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    setStakingContract(
+      newStakingContract_: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    stakingContract(overrides?: CallOverrides): Promise<[string]>;
 
     symbol(overrides?: CallOverrides): Promise<[string]>;
-
-    sync(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    token0(overrides?: CallOverrides): Promise<[string]>;
-
-    token1(overrides?: CallOverrides): Promise<[string]>;
 
     totalSupply(overrides?: CallOverrides): Promise<[BigNumber]>;
 
@@ -393,17 +371,20 @@ export class OhmDai extends BaseContract {
       value: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
+
+    transferOwnership(
+      newOwner_: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
   };
 
   DOMAIN_SEPARATOR(overrides?: CallOverrides): Promise<string>;
 
-  MINIMUM_LIQUIDITY(overrides?: CallOverrides): Promise<BigNumber>;
-
   PERMIT_TYPEHASH(overrides?: CallOverrides): Promise<string>;
 
   allowance(
-    arg0: string,
-    arg1: string,
+    owner_: string,
+    spender: string,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
@@ -413,48 +394,36 @@ export class OhmDai extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  balanceOf(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+  balanceOf(who: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-  burn(
-    to: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  circulatingSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
   decimals(overrides?: CallOverrides): Promise<number>;
 
-  factory(overrides?: CallOverrides): Promise<string>;
-
-  getReserves(
-    overrides?: CallOverrides
-  ): Promise<
-    [BigNumber, BigNumber, number] & {
-      _reserve0: BigNumber;
-      _reserve1: BigNumber;
-      _blockTimestampLast: number;
-    }
-  >;
-
-  initialize(
-    _token0: string,
-    _token1: string,
+  decreaseAllowance(
+    spender: string,
+    subtractedValue: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  kLast(overrides?: CallOverrides): Promise<BigNumber>;
-
-  mint(
-    to: string,
+  increaseAllowance(
+    spender: string,
+    addedValue: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
+
+  monetaryPolicy(overrides?: CallOverrides): Promise<string>;
 
   name(overrides?: CallOverrides): Promise<string>;
 
-  nonces(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+  nonces(owner: string, overrides?: CallOverrides): Promise<BigNumber>;
+
+  owner(overrides?: CallOverrides): Promise<string>;
 
   permit(
     owner: string,
     spender: string,
-    value: BigNumberish,
+    amount: BigNumberish,
     deadline: BigNumberish,
     v: BigNumberish,
     r: BytesLike,
@@ -462,32 +431,28 @@ export class OhmDai extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  price0CumulativeLast(overrides?: CallOverrides): Promise<BigNumber>;
-
-  price1CumulativeLast(overrides?: CallOverrides): Promise<BigNumber>;
-
-  skim(
-    to: string,
+  rebase(
+    olyProfit: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  swap(
-    amount0Out: BigNumberish,
-    amount1Out: BigNumberish,
-    to: string,
-    data: BytesLike,
+  renounceOwnership(
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
+
+  setMonetaryPolicy(
+    monetaryPolicy_: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  setStakingContract(
+    newStakingContract_: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  stakingContract(overrides?: CallOverrides): Promise<string>;
 
   symbol(overrides?: CallOverrides): Promise<string>;
-
-  sync(
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  token0(overrides?: CallOverrides): Promise<string>;
-
-  token1(overrides?: CallOverrides): Promise<string>;
 
   totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -504,16 +469,19 @@ export class OhmDai extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  transferOwnership(
+    newOwner_: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
   callStatic: {
     DOMAIN_SEPARATOR(overrides?: CallOverrides): Promise<string>;
-
-    MINIMUM_LIQUIDITY(overrides?: CallOverrides): Promise<BigNumber>;
 
     PERMIT_TYPEHASH(overrides?: CallOverrides): Promise<string>;
 
     allowance(
-      arg0: string,
-      arg1: string,
+      owner_: string,
+      spender: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -523,47 +491,36 @@ export class OhmDai extends BaseContract {
       overrides?: CallOverrides
     ): Promise<boolean>;
 
-    balanceOf(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+    balanceOf(who: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-    burn(
-      to: string,
-      overrides?: CallOverrides
-    ): Promise<
-      [BigNumber, BigNumber] & { amount0: BigNumber; amount1: BigNumber }
-    >;
+    circulatingSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
     decimals(overrides?: CallOverrides): Promise<number>;
 
-    factory(overrides?: CallOverrides): Promise<string>;
-
-    getReserves(
+    decreaseAllowance(
+      spender: string,
+      subtractedValue: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<
-      [BigNumber, BigNumber, number] & {
-        _reserve0: BigNumber;
-        _reserve1: BigNumber;
-        _blockTimestampLast: number;
-      }
-    >;
+    ): Promise<boolean>;
 
-    initialize(
-      _token0: string,
-      _token1: string,
+    increaseAllowance(
+      spender: string,
+      addedValue: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<void>;
+    ): Promise<boolean>;
 
-    kLast(overrides?: CallOverrides): Promise<BigNumber>;
-
-    mint(to: string, overrides?: CallOverrides): Promise<BigNumber>;
+    monetaryPolicy(overrides?: CallOverrides): Promise<string>;
 
     name(overrides?: CallOverrides): Promise<string>;
 
-    nonces(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+    nonces(owner: string, overrides?: CallOverrides): Promise<BigNumber>;
+
+    owner(overrides?: CallOverrides): Promise<string>;
 
     permit(
       owner: string,
       spender: string,
-      value: BigNumberish,
+      amount: BigNumberish,
       deadline: BigNumberish,
       v: BigNumberish,
       r: BytesLike,
@@ -571,27 +528,26 @@ export class OhmDai extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    price0CumulativeLast(overrides?: CallOverrides): Promise<BigNumber>;
+    rebase(
+      olyProfit: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
-    price1CumulativeLast(overrides?: CallOverrides): Promise<BigNumber>;
+    renounceOwnership(overrides?: CallOverrides): Promise<void>;
 
-    skim(to: string, overrides?: CallOverrides): Promise<void>;
-
-    swap(
-      amount0Out: BigNumberish,
-      amount1Out: BigNumberish,
-      to: string,
-      data: BytesLike,
+    setMonetaryPolicy(
+      monetaryPolicy_: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
+    setStakingContract(
+      newStakingContract_: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    stakingContract(overrides?: CallOverrides): Promise<string>;
+
     symbol(overrides?: CallOverrides): Promise<string>;
-
-    sync(overrides?: CallOverrides): Promise<void>;
-
-    token0(overrides?: CallOverrides): Promise<string>;
-
-    token1(overrides?: CallOverrides): Promise<string>;
 
     totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -607,6 +563,11 @@ export class OhmDai extends BaseContract {
       value: BigNumberish,
       overrides?: CallOverrides
     ): Promise<boolean>;
+
+    transferOwnership(
+      newOwner_: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
   };
 
   filters: {
@@ -628,96 +589,44 @@ export class OhmDai extends BaseContract {
       { owner: string; spender: string; value: BigNumber }
     >;
 
-    "Burn(address,uint256,uint256,address)"(
-      sender?: string | null,
-      amount0?: null,
-      amount1?: null,
-      to?: string | null
-    ): TypedEventFilter<
-      [string, BigNumber, BigNumber, string],
-      { sender: string; amount0: BigNumber; amount1: BigNumber; to: string }
-    >;
+    "LogMonetaryPolicyUpdated(address)"(
+      monetaryPolicy?: null
+    ): TypedEventFilter<[string], { monetaryPolicy: string }>;
 
-    Burn(
-      sender?: string | null,
-      amount0?: null,
-      amount1?: null,
-      to?: string | null
-    ): TypedEventFilter<
-      [string, BigNumber, BigNumber, string],
-      { sender: string; amount0: BigNumber; amount1: BigNumber; to: string }
-    >;
+    LogMonetaryPolicyUpdated(
+      monetaryPolicy?: null
+    ): TypedEventFilter<[string], { monetaryPolicy: string }>;
 
-    "Mint(address,uint256,uint256)"(
-      sender?: string | null,
-      amount0?: null,
-      amount1?: null
-    ): TypedEventFilter<
-      [string, BigNumber, BigNumber],
-      { sender: string; amount0: BigNumber; amount1: BigNumber }
-    >;
-
-    Mint(
-      sender?: string | null,
-      amount0?: null,
-      amount1?: null
-    ): TypedEventFilter<
-      [string, BigNumber, BigNumber],
-      { sender: string; amount0: BigNumber; amount1: BigNumber }
-    >;
-
-    "Swap(address,uint256,uint256,uint256,uint256,address)"(
-      sender?: string | null,
-      amount0In?: null,
-      amount1In?: null,
-      amount0Out?: null,
-      amount1Out?: null,
-      to?: string | null
-    ): TypedEventFilter<
-      [string, BigNumber, BigNumber, BigNumber, BigNumber, string],
-      {
-        sender: string;
-        amount0In: BigNumber;
-        amount1In: BigNumber;
-        amount0Out: BigNumber;
-        amount1Out: BigNumber;
-        to: string;
-      }
-    >;
-
-    Swap(
-      sender?: string | null,
-      amount0In?: null,
-      amount1In?: null,
-      amount0Out?: null,
-      amount1Out?: null,
-      to?: string | null
-    ): TypedEventFilter<
-      [string, BigNumber, BigNumber, BigNumber, BigNumber, string],
-      {
-        sender: string;
-        amount0In: BigNumber;
-        amount1In: BigNumber;
-        amount0Out: BigNumber;
-        amount1Out: BigNumber;
-        to: string;
-      }
-    >;
-
-    "Sync(uint112,uint112)"(
-      reserve0?: null,
-      reserve1?: null
+    "LogRebase(uint256,uint256)"(
+      epoch?: BigNumberish | null,
+      totalSupply?: null
     ): TypedEventFilter<
       [BigNumber, BigNumber],
-      { reserve0: BigNumber; reserve1: BigNumber }
+      { epoch: BigNumber; totalSupply: BigNumber }
     >;
 
-    Sync(
-      reserve0?: null,
-      reserve1?: null
+    LogRebase(
+      epoch?: BigNumberish | null,
+      totalSupply?: null
     ): TypedEventFilter<
       [BigNumber, BigNumber],
-      { reserve0: BigNumber; reserve1: BigNumber }
+      { epoch: BigNumber; totalSupply: BigNumber }
+    >;
+
+    "OwnershipTransferred(address,address)"(
+      previousOwner?: string | null,
+      newOwner?: string | null
+    ): TypedEventFilter<
+      [string, string],
+      { previousOwner: string; newOwner: string }
+    >;
+
+    OwnershipTransferred(
+      previousOwner?: string | null,
+      newOwner?: string | null
+    ): TypedEventFilter<
+      [string, string],
+      { previousOwner: string; newOwner: string }
     >;
 
     "Transfer(address,address,uint256)"(
@@ -742,13 +651,11 @@ export class OhmDai extends BaseContract {
   estimateGas: {
     DOMAIN_SEPARATOR(overrides?: CallOverrides): Promise<BigNumber>;
 
-    MINIMUM_LIQUIDITY(overrides?: CallOverrides): Promise<BigNumber>;
-
     PERMIT_TYPEHASH(overrides?: CallOverrides): Promise<BigNumber>;
 
     allowance(
-      arg0: string,
-      arg1: string,
+      owner_: string,
+      spender: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -758,40 +665,36 @@ export class OhmDai extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    balanceOf(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+    balanceOf(who: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-    burn(
-      to: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    circulatingSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
     decimals(overrides?: CallOverrides): Promise<BigNumber>;
 
-    factory(overrides?: CallOverrides): Promise<BigNumber>;
-
-    getReserves(overrides?: CallOverrides): Promise<BigNumber>;
-
-    initialize(
-      _token0: string,
-      _token1: string,
+    decreaseAllowance(
+      spender: string,
+      subtractedValue: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    kLast(overrides?: CallOverrides): Promise<BigNumber>;
-
-    mint(
-      to: string,
+    increaseAllowance(
+      spender: string,
+      addedValue: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
+
+    monetaryPolicy(overrides?: CallOverrides): Promise<BigNumber>;
 
     name(overrides?: CallOverrides): Promise<BigNumber>;
 
-    nonces(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+    nonces(owner: string, overrides?: CallOverrides): Promise<BigNumber>;
+
+    owner(overrides?: CallOverrides): Promise<BigNumber>;
 
     permit(
       owner: string,
       spender: string,
-      value: BigNumberish,
+      amount: BigNumberish,
       deadline: BigNumberish,
       v: BigNumberish,
       r: BytesLike,
@@ -799,32 +702,28 @@ export class OhmDai extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    price0CumulativeLast(overrides?: CallOverrides): Promise<BigNumber>;
-
-    price1CumulativeLast(overrides?: CallOverrides): Promise<BigNumber>;
-
-    skim(
-      to: string,
+    rebase(
+      olyProfit: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    swap(
-      amount0Out: BigNumberish,
-      amount1Out: BigNumberish,
-      to: string,
-      data: BytesLike,
+    renounceOwnership(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
+
+    setMonetaryPolicy(
+      monetaryPolicy_: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    setStakingContract(
+      newStakingContract_: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    stakingContract(overrides?: CallOverrides): Promise<BigNumber>;
 
     symbol(overrides?: CallOverrides): Promise<BigNumber>;
-
-    sync(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    token0(overrides?: CallOverrides): Promise<BigNumber>;
-
-    token1(overrides?: CallOverrides): Promise<BigNumber>;
 
     totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -840,18 +739,21 @@ export class OhmDai extends BaseContract {
       value: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
+
+    transferOwnership(
+      newOwner_: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
   };
 
   populateTransaction: {
     DOMAIN_SEPARATOR(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    MINIMUM_LIQUIDITY(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
     PERMIT_TYPEHASH(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     allowance(
-      arg0: string,
-      arg1: string,
+      owner_: string,
+      spender: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -862,45 +764,41 @@ export class OhmDai extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     balanceOf(
-      arg0: string,
+      who: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    burn(
-      to: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    circulatingSupply(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     decimals(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    factory(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    getReserves(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    initialize(
-      _token0: string,
-      _token1: string,
+    decreaseAllowance(
+      spender: string,
+      subtractedValue: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    kLast(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    mint(
-      to: string,
+    increaseAllowance(
+      spender: string,
+      addedValue: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
+
+    monetaryPolicy(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     name(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     nonces(
-      arg0: string,
+      owner: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
+
+    owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     permit(
       owner: string,
       spender: string,
-      value: BigNumberish,
+      amount: BigNumberish,
       deadline: BigNumberish,
       v: BigNumberish,
       r: BytesLike,
@@ -908,36 +806,28 @@ export class OhmDai extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    price0CumulativeLast(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    price1CumulativeLast(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    skim(
-      to: string,
+    rebase(
+      olyProfit: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    swap(
-      amount0Out: BigNumberish,
-      amount1Out: BigNumberish,
-      to: string,
-      data: BytesLike,
+    renounceOwnership(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
+
+    setMonetaryPolicy(
+      monetaryPolicy_: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    setStakingContract(
+      newStakingContract_: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    stakingContract(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     symbol(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    sync(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    token0(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    token1(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     totalSupply(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
@@ -951,6 +841,11 @@ export class OhmDai extends BaseContract {
       from: string,
       to: string,
       value: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    transferOwnership(
+      newOwner_: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
   };
