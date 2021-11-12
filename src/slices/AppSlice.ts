@@ -1,13 +1,13 @@
 import { ethers } from "ethers";
 import { addresses } from "../constants";
-import { abi as OlympusStakingv2ABI } from "../abi/OlympusStakingv2.json";
-import { abi as sOHMv2 } from "../abi/sOhmv2.json";
+import { abi as RuGenerousStakingv2ABI } from "../abi/RuGenerousStakingv2.json";
+import { abi as sRUGv2 } from "../abi/sRugv2.json";
 import { setAll, getTokenPrice, getMarketPrice } from "../helpers";
 import apollo from "../lib/apolloClient.js";
 import { createSlice, createSelector, createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "src/store";
 import { IBaseAsyncThunk } from "./interfaces";
-import { OlympusStakingv2, SOhmv2 } from "../typechain";
+import { RuGenerousStakingv2, SRugv2 } from "../typechain";
 
 const initialState = {
   loading: false,
@@ -27,14 +27,14 @@ export const loadAppDetails = createAsyncThunk(
     protocolMetrics(first: 1, orderBy: timestamp, orderDirection: desc) {
       timestamp
       ohmCirculatingSupply
-      sOhmCirculatingSupply
+      sRugCirculatingSupply
       totalSupply
       ohmPrice
       marketCap
       totalValueLocked
       treasuryMarketValue
       nextEpochRebase
-      nextDistributedOhm
+      nextDistributedRug
     }
   }
 `;
@@ -82,15 +82,15 @@ export const loadAppDetails = createAsyncThunk(
 
     const stakingContract = new ethers.Contract(
       addresses[networkID].STAKING_ADDRESS as string,
-      OlympusStakingv2ABI,
+      RuGenerousStakingv2ABI,
       provider,
-    ) as OlympusStakingv2;
+    ) as RuGenerousStakingv2;
 
     const sohmMainContract = new ethers.Contract(
-      addresses[networkID].SOHM_ADDRESS as string,
-      sOHMv2,
+      addresses[networkID].SRUG_ADDRESS as string,
+      sRUGv2,
       provider,
-    ) as SOhmv2;
+    ) as SRugv2;
 
     // Calculating staking
     const epoch = await stakingContract.epoch();
@@ -159,7 +159,7 @@ export const findOrLoadMarketPrice = createAsyncThunk(
 );
 
 /**
- * - fetches the OHM price from CoinGecko (via getTokenPrice)
+ * - fetches the RUG price from CoinGecko (via getTokenPrice)
  * - falls back to fetch marketPrice from ohm-dai contract
  * - updates the App.slice when it runs
  */

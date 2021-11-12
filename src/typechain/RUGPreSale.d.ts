@@ -19,28 +19,28 @@ import { Listener, Provider } from "@ethersproject/providers";
 import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
 import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 
-interface OHMPreSaleInterface extends ethers.utils.Interface {
+interface RUGPreSaleInterface extends ethers.utils.Interface {
   functions: {
     "DAI()": FunctionFragment;
-    "aOHM()": FunctionFragment;
+    "aRUG()": FunctionFragment;
     "addressToSendDai()": FunctionFragment;
     "calculateSaleQuote(uint256)": FunctionFragment;
     "endOfSale()": FunctionFragment;
     "getAllotmentPerBuyer()": FunctionFragment;
     "initialize(address,address,uint256,uint256)": FunctionFragment;
     "owner()": FunctionFragment;
-    "purchaseaOHM(uint256)": FunctionFragment;
+    "purchaseaRUG(uint256)": FunctionFragment;
     "renounceOwnership()": FunctionFragment;
     "salePrice()": FunctionFragment;
     "saleStarted()": FunctionFragment;
-    "sendRemainingaOHM(address)": FunctionFragment;
+    "sendRemainingaRUG(address)": FunctionFragment;
     "totalWhiteListed()": FunctionFragment;
     "transferOwnership(address)": FunctionFragment;
     "whiteListBuyers(address[])": FunctionFragment;
   };
 
   encodeFunctionData(functionFragment: "DAI", values?: undefined): string;
-  encodeFunctionData(functionFragment: "aOHM", values?: undefined): string;
+  encodeFunctionData(functionFragment: "aRUG", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "addressToSendDai",
     values?: undefined
@@ -60,7 +60,7 @@ interface OHMPreSaleInterface extends ethers.utils.Interface {
   ): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "purchaseaOHM",
+    functionFragment: "purchaseaRUG",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
@@ -73,7 +73,7 @@ interface OHMPreSaleInterface extends ethers.utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "sendRemainingaOHM",
+    functionFragment: "sendRemainingaRUG",
     values: [string]
   ): string;
   encodeFunctionData(
@@ -90,7 +90,7 @@ interface OHMPreSaleInterface extends ethers.utils.Interface {
   ): string;
 
   decodeFunctionResult(functionFragment: "DAI", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "aOHM", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "aRUG", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "addressToSendDai",
     data: BytesLike
@@ -107,7 +107,7 @@ interface OHMPreSaleInterface extends ethers.utils.Interface {
   decodeFunctionResult(functionFragment: "initialize", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "purchaseaOHM",
+    functionFragment: "purchaseaRUG",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -120,7 +120,7 @@ interface OHMPreSaleInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "sendRemainingaOHM",
+    functionFragment: "sendRemainingaRUG",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -147,7 +147,7 @@ export type OwnershipTransferredEvent = TypedEvent<
   [string, string] & { previousOwner: string; newOwner: string }
 >;
 
-export class OHMPreSale extends BaseContract {
+export class RUGPreSale extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
@@ -188,12 +188,12 @@ export class OHMPreSale extends BaseContract {
     toBlock?: string | number | undefined
   ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>;
 
-  interface: OHMPreSaleInterface;
+  interface: RUGPreSaleInterface;
 
   functions: {
     DAI(overrides?: CallOverrides): Promise<[string]>;
 
-    aOHM(overrides?: CallOverrides): Promise<[string]>;
+    aRUG(overrides?: CallOverrides): Promise<[string]>;
 
     addressToSendDai(overrides?: CallOverrides): Promise<[string]>;
 
@@ -208,7 +208,7 @@ export class OHMPreSale extends BaseContract {
 
     initialize(
       _dai: string,
-      _aOHM: string,
+      _aRUG: string,
       _salePrice: BigNumberish,
       _saleLength: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -216,7 +216,7 @@ export class OHMPreSale extends BaseContract {
 
     owner(overrides?: CallOverrides): Promise<[string]>;
 
-    purchaseaOHM(
+    purchaseaRUG(
       _amountDAI: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
@@ -229,8 +229,8 @@ export class OHMPreSale extends BaseContract {
 
     saleStarted(overrides?: CallOverrides): Promise<[boolean]>;
 
-    sendRemainingaOHM(
-      _sendaOHMTo: string,
+    sendRemainingaRUG(
+      _sendaRUGTo: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -249,7 +249,7 @@ export class OHMPreSale extends BaseContract {
 
   DAI(overrides?: CallOverrides): Promise<string>;
 
-  aOHM(overrides?: CallOverrides): Promise<string>;
+  aRUG(overrides?: CallOverrides): Promise<string>;
 
   addressToSendDai(overrides?: CallOverrides): Promise<string>;
 
@@ -264,7 +264,7 @@ export class OHMPreSale extends BaseContract {
 
   initialize(
     _dai: string,
-    _aOHM: string,
+    _aRUG: string,
     _salePrice: BigNumberish,
     _saleLength: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
@@ -272,7 +272,7 @@ export class OHMPreSale extends BaseContract {
 
   owner(overrides?: CallOverrides): Promise<string>;
 
-  purchaseaOHM(
+  purchaseaRUG(
     _amountDAI: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
@@ -285,8 +285,8 @@ export class OHMPreSale extends BaseContract {
 
   saleStarted(overrides?: CallOverrides): Promise<boolean>;
 
-  sendRemainingaOHM(
-    _sendaOHMTo: string,
+  sendRemainingaRUG(
+    _sendaRUGTo: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -305,7 +305,7 @@ export class OHMPreSale extends BaseContract {
   callStatic: {
     DAI(overrides?: CallOverrides): Promise<string>;
 
-    aOHM(overrides?: CallOverrides): Promise<string>;
+    aRUG(overrides?: CallOverrides): Promise<string>;
 
     addressToSendDai(overrides?: CallOverrides): Promise<string>;
 
@@ -320,7 +320,7 @@ export class OHMPreSale extends BaseContract {
 
     initialize(
       _dai: string,
-      _aOHM: string,
+      _aRUG: string,
       _salePrice: BigNumberish,
       _saleLength: BigNumberish,
       overrides?: CallOverrides
@@ -328,7 +328,7 @@ export class OHMPreSale extends BaseContract {
 
     owner(overrides?: CallOverrides): Promise<string>;
 
-    purchaseaOHM(
+    purchaseaRUG(
       _amountDAI: BigNumberish,
       overrides?: CallOverrides
     ): Promise<boolean>;
@@ -339,8 +339,8 @@ export class OHMPreSale extends BaseContract {
 
     saleStarted(overrides?: CallOverrides): Promise<boolean>;
 
-    sendRemainingaOHM(
-      _sendaOHMTo: string,
+    sendRemainingaRUG(
+      _sendaRUGTo: string,
       overrides?: CallOverrides
     ): Promise<boolean>;
 
@@ -378,7 +378,7 @@ export class OHMPreSale extends BaseContract {
   estimateGas: {
     DAI(overrides?: CallOverrides): Promise<BigNumber>;
 
-    aOHM(overrides?: CallOverrides): Promise<BigNumber>;
+    aRUG(overrides?: CallOverrides): Promise<BigNumber>;
 
     addressToSendDai(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -393,7 +393,7 @@ export class OHMPreSale extends BaseContract {
 
     initialize(
       _dai: string,
-      _aOHM: string,
+      _aRUG: string,
       _salePrice: BigNumberish,
       _saleLength: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -401,7 +401,7 @@ export class OHMPreSale extends BaseContract {
 
     owner(overrides?: CallOverrides): Promise<BigNumber>;
 
-    purchaseaOHM(
+    purchaseaRUG(
       _amountDAI: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
@@ -414,8 +414,8 @@ export class OHMPreSale extends BaseContract {
 
     saleStarted(overrides?: CallOverrides): Promise<BigNumber>;
 
-    sendRemainingaOHM(
-      _sendaOHMTo: string,
+    sendRemainingaRUG(
+      _sendaRUGTo: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -435,7 +435,7 @@ export class OHMPreSale extends BaseContract {
   populateTransaction: {
     DAI(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    aOHM(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    aRUG(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     addressToSendDai(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
@@ -452,7 +452,7 @@ export class OHMPreSale extends BaseContract {
 
     initialize(
       _dai: string,
-      _aOHM: string,
+      _aRUG: string,
       _salePrice: BigNumberish,
       _saleLength: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -460,7 +460,7 @@ export class OHMPreSale extends BaseContract {
 
     owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    purchaseaOHM(
+    purchaseaRUG(
       _amountDAI: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
@@ -473,8 +473,8 @@ export class OHMPreSale extends BaseContract {
 
     saleStarted(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    sendRemainingaOHM(
-      _sendaOHMTo: string,
+    sendRemainingaRUG(
+      _sendaRUGTo: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 

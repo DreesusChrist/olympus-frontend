@@ -19,10 +19,10 @@ import { Listener, Provider } from "@ethersproject/providers";
 import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
 import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 
-interface MigrateToOHMInterface extends ethers.utils.Interface {
+interface MigrateToRUGInterface extends ethers.utils.Interface {
   functions: {
-    "OHM()": FunctionFragment;
-    "aOHM()": FunctionFragment;
+    "RUG()": FunctionFragment;
+    "aRUG()": FunctionFragment;
     "initialize(address,address,uint256)": FunctionFragment;
     "isInitialized()": FunctionFragment;
     "migrate(uint256)": FunctionFragment;
@@ -34,8 +34,8 @@ interface MigrateToOHMInterface extends ethers.utils.Interface {
     "withdraw()": FunctionFragment;
   };
 
-  encodeFunctionData(functionFragment: "OHM", values?: undefined): string;
-  encodeFunctionData(functionFragment: "aOHM", values?: undefined): string;
+  encodeFunctionData(functionFragment: "RUG", values?: undefined): string;
+  encodeFunctionData(functionFragment: "aRUG", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "initialize",
     values: [string, string, BigNumberish]
@@ -61,8 +61,8 @@ interface MigrateToOHMInterface extends ethers.utils.Interface {
   ): string;
   encodeFunctionData(functionFragment: "withdraw", values?: undefined): string;
 
-  decodeFunctionResult(functionFragment: "OHM", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "aOHM", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "RUG", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "aRUG", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "initialize", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "isInitialized",
@@ -93,7 +93,7 @@ export type OwnershipTransferredEvent = TypedEvent<
   [string, string] & { previousOwner: string; newOwner: string }
 >;
 
-export class MigrateToOHM extends BaseContract {
+export class MigrateToRUG extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
@@ -134,16 +134,16 @@ export class MigrateToOHM extends BaseContract {
     toBlock?: string | number | undefined
   ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>;
 
-  interface: MigrateToOHMInterface;
+  interface: MigrateToRUGInterface;
 
   functions: {
-    OHM(overrides?: CallOverrides): Promise<[string]>;
+    RUG(overrides?: CallOverrides): Promise<[string]>;
 
-    aOHM(overrides?: CallOverrides): Promise<[string]>;
+    aRUG(overrides?: CallOverrides): Promise<[string]>;
 
     initialize(
-      _OHM: string,
-      _aOHM: string,
+      _RUG: string,
+      _aRUG: string,
       swapDuration: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
@@ -177,13 +177,13 @@ export class MigrateToOHM extends BaseContract {
     ): Promise<ContractTransaction>;
   };
 
-  OHM(overrides?: CallOverrides): Promise<string>;
+  RUG(overrides?: CallOverrides): Promise<string>;
 
-  aOHM(overrides?: CallOverrides): Promise<string>;
+  aRUG(overrides?: CallOverrides): Promise<string>;
 
   initialize(
-    _OHM: string,
-    _aOHM: string,
+    _RUG: string,
+    _aRUG: string,
     swapDuration: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
@@ -217,13 +217,13 @@ export class MigrateToOHM extends BaseContract {
   ): Promise<ContractTransaction>;
 
   callStatic: {
-    OHM(overrides?: CallOverrides): Promise<string>;
+    RUG(overrides?: CallOverrides): Promise<string>;
 
-    aOHM(overrides?: CallOverrides): Promise<string>;
+    aRUG(overrides?: CallOverrides): Promise<string>;
 
     initialize(
-      _OHM: string,
-      _aOHM: string,
+      _RUG: string,
+      _aRUG: string,
       swapDuration: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
@@ -267,13 +267,13 @@ export class MigrateToOHM extends BaseContract {
   };
 
   estimateGas: {
-    OHM(overrides?: CallOverrides): Promise<BigNumber>;
+    RUG(overrides?: CallOverrides): Promise<BigNumber>;
 
-    aOHM(overrides?: CallOverrides): Promise<BigNumber>;
+    aRUG(overrides?: CallOverrides): Promise<BigNumber>;
 
     initialize(
-      _OHM: string,
-      _aOHM: string,
+      _RUG: string,
+      _aRUG: string,
       swapDuration: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
@@ -308,13 +308,13 @@ export class MigrateToOHM extends BaseContract {
   };
 
   populateTransaction: {
-    OHM(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    RUG(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    aOHM(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    aRUG(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     initialize(
-      _OHM: string,
-      _aOHM: string,
+      _RUG: string,
+      _aRUG: string,
       swapDuration: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;

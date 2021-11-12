@@ -33,7 +33,7 @@ export const PoolInfo = props => {
 
   return (
     <Zoom in={true}>
-      <Paper className="ohm-card">
+      <Paper className="rug-card">
         <div className="card-header">
           <Typography variant="h5">Prize Pool Info</Typography>
         </div>
@@ -62,7 +62,7 @@ export const PoolInfo = props => {
               </div>
               <div className="data-row">
                 <Typography>Your wallet balance</Typography>
-                <Typography>{props.isAccountLoading ? <Skeleton width={100} /> : props.sohmBalance} sOHM</Typography>
+                <Typography>{props.isAccountLoading ? <Skeleton width={100} /> : props.srugBalance} sOHM</Typography>
               </div>
             </Box>
             <Divider color="secondary" />
@@ -93,7 +93,7 @@ export const PoolInfo = props => {
           <div className="data-row">
             <Typography>Pool owner</Typography>
             <Box display="flex" alignItems="center">
-              <Typography>OlympusDAO</Typography>
+              <Typography>RugDAO</Typography>
             </Box>
           </div>
           <Divider color="secondary" />
@@ -140,7 +140,7 @@ PoolInfo.propTypes = {
   graphLoading: PropTypes.bool.isRequired,
   isAccountLoading: PropTypes.bool.isRequired,
   poolBalance: PropTypes.string,
-  sohmBalance: PropTypes.string,
+  srugBalance: PropTypes.string,
   yourTotalAwards: PropTypes.string,
   yourOdds: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   winners: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),

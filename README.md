@@ -1,7 +1,7 @@
-# [Ω Olympus Frontend](https://app.olympusdao.finance/)
-This is the front-end repo for Olympus that allows users be part of the future of Greece. 
+# [Rug Dao Frontend](https://app.rugdao.finance/)
+This is the front-end repo for Rug that allows users be part of the future of Greece. 
 
-**_ Note We're currently in the process of switching to TypeScript. Please read  this  guide on how to use TypeScript for this repository. https://github.com/OlympusDAO/olympus-frontend/wiki/TypeScript-Refactor-General-Guidelines _**
+**_ Note We're currently in the process of switching to TypeScript. Please read  this  guide on how to use TypeScript for this repository. https://github.com/RugDAO/Rug-frontend/wiki/TypeScript-Refactor-General-Guidelines _**
 
 ##  🔧 Setting up Local Development
 
@@ -12,8 +12,8 @@ Required:
 
 
 ```bash
-$ git clone https://github.com/OlympusDAO/olympusdao.git
-$ cd olympusdao
+$ git clone https://github.com/DreesusChrist/Rugdao.git
+$ cd Rugdao
 
 # set up your environment variables
 # read the comments in the .env files for what is required/optional
@@ -29,8 +29,8 @@ Open the source code and start editing!
 
 ## Rinkeby Testing
 
-**Rinkeby faucet for sOHM:**
-[Lives here](https://rinkeby.etherscan.io/address/0x800B3d87b77361F0D1d903246cA1F51b5acb43c9#writeContract), to retrieve test sOHM click `Connect to Web3` and use function #3: `dripSOHM`. After connecting to web3, click `Write` to execute and 10 sOHM will automatically be transferred to your connected wallet.
+**Rinkeby faucet for sRUG:**
+[Lives here](https://rinkeby.etherscan.io/address/0x800B3d87b77361F0D1d903246cA1F51b5acb43c9#writeContract), to retrieve test sRUG click `Connect to Web3` and use function #3: `dripSRUG`. After connecting to web3, click `Write` to execute and 10 sRUG will automatically be transferred to your connected wallet.
 
 Note: The faucet is limited to one transfer per wallet every 6500 blocks (~1 day)
 
@@ -74,8 +74,8 @@ _**TODO**: TheGraph implementation/how/why we use it._
 Commits to the follow branches are automatically deployed to their respective URLs.
 | Branch | URL |
 | --- | --- |
-| master | https://app.olympusdao.finance |
-| deploy | https://staging.olympusdao.finance |
+| master | https://app.Rugdao.finance |
+| deploy | https://staging.Rugdao.finance |
 
 **Pull Requests**:
 Each PR into master will get its own custom URL that is visible on the PR page. QA & validate changes on that URL before merging into the deploy branch. 
@@ -83,12 +83,12 @@ Each PR into master will get its own custom URL that is visible on the PR page. 
 
 ## 👏🏽 Contributing Guidelines 
 
-We keep an updated list of bugs/feature requests in [Github Issues](https://github.com/OlympusDAO/olympusdao/issues). 
+We keep an updated list of bugs/feature requests in [Github Issues](https://github.com/dreesuschrist/rugdao/issues). 
 
 
-![GitHub issues](https://img.shields.io/github/issues/olympusdao/olympusdao?style=flat-square)
+![GitHub issues](https://img.shields.io/github/issues/dreesuschrist/rugdao?style=flat-square)
 
-Filter by ["good first issue"](https://github.com/OlympusDAO/olympusdao/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22) to get your feet wet!
+Filter by ["good first issue"](https://github.com/dreesuschrist/rugdao/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22) to get your feet wet!
 Once you submit a PR, our CI will generate a temporary testing URL where you can validate your changes. Tag any of the gatekeepers on the review to merge them into master. 
 
 *__NOTE__*: For big changes associated with feature releases/milestones, they will be merged onto the `develop` branch for more thorough QA before a final merge to `master`
@@ -97,12 +97,12 @@ Once you submit a PR, our CI will generate a temporary testing URL where you can
 **Defenders of the code**: 
 
 Only the following people have merge access for the master branch. 
-* [@Girth Brooks](https://github.com/dwjanus)
-* [@Unbanksy](https://github.com/unbanksy)
-* [@ZayenX](https://github.com/lolchocotaco)
+* [@Dreesus](https://github.com/dreesuschrist)
+* [@Camden](https://github.com/camdengrieh)
+
 
 
 ## 🗣 Community
 
-* [Join our Discord](https://discord.gg/gGZUMVDuhQ) and ask how you can get involved with the DAO!
+* [Join our Discord](https://discord.gg/R7uqKD9y) and ask how you can get involved with the DAO!
 

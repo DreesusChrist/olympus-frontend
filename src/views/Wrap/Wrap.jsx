@@ -19,7 +19,7 @@ import {
 import TabPanel from "../../components/TabPanel";
 import InfoTooltip from "../../components/InfoTooltip/InfoTooltip.jsx";
 import { ReactComponent as InfoIcon } from "../../assets/icons/info-fill.svg";
-import { getOhmTokenImage, getTokenImage, trim, formatCurrency } from "../../helpers";
+import { getRugTokenImage, getTokenImage, trim, formatCurrency } from "../../helpers";
 import { changeApproval, changeWrap } from "../../slices/WrapThunk";
 import "../Stake/stake.scss";
 import { useWeb3Context } from "src/hooks/web3Context";
@@ -35,8 +35,8 @@ function a11yProps(index) {
   };
 }
 
-const sOhmImg = getTokenImage("sohm");
-const ohmImg = getOhmTokenImage(16, 16);
+const sRugImg = getTokenImage("srug");
+const rugImg = getRugTokenImage(16, 16);
 
 function Wrap() {
   const dispatch = useDispatch();
@@ -51,25 +51,25 @@ function Wrap() {
     return state.app.currentIndex;
   });
 
-  const sOhmPrice = useSelector(state => {
+  const sRugPrice = useSelector(state => {
     return state.app.marketPrice;
   });
 
-  const wsOhmPrice = useSelector(state => {
+  const wsRugPrice = useSelector(state => {
     return state.app.marketPrice * state.app.currentIndex;
   });
 
-  const sohmBalance = useSelector(state => {
-    return state.account.balances && state.account.balances.sohm;
+  const srugBalance = useSelector(state => {
+    return state.account.balances && state.account.balances.srug;
   });
-  const wsohmBalance = useSelector(state => {
-    return state.account.balances && state.account.balances.wsohm;
+  const wsrugBalance = useSelector(state => {
+    return state.account.balances && state.account.balances.wsrug;
   });
   const wrapAllowance = useSelector(state => {
-    return state.account.wrapping && state.account.wrapping.ohmWrap;
+    return state.account.wrapping && state.account.wrapping.rugWrap;
   });
   const unwrapAllowance = useSelector(state => {
-    return state.account.wrapping && state.account.wrapping.ohmUnwrap;
+    return state.account.wrapping && state.account.wrapping.rugUnwrap;
   });
 
   const pendingTransactions = useSelector(state => {
@@ -78,9 +78,9 @@ function Wrap() {
 
   const setMax = () => {
     if (view === 0) {
-      setQuantity(sohmBalance);
+      setQuantity(srugBalance);
     } else {
-      setQuantity(wsohmBalance);
+      setQuantity(wsrugBalance);
     }
   };
 
@@ -98,16 +98,16 @@ function Wrap() {
     // 1st catch if quantity > balance
     if (
       action === "wrap" &&
-      ethers.utils.parseUnits(quantity, "gwei").gt(ethers.utils.parseUnits(sohmBalance, "gwei"))
+      ethers.utils.parseUnits(quantity, "gwei").gt(ethers.utils.parseUnits(srugBalance, "gwei"))
     ) {
-      return dispatch(error("You cannot wrap more than your sOHM balance."));
+      return dispatch(error("You cannot wrap more than your sRUG balance."));
     }
 
     if (
       action === "unwrap" &&
-      ethers.utils.parseUnits(quantity, "ether").gt(ethers.utils.parseUnits(wsohmBalance, "ether"))
+      ethers.utils.parseUnits(quantity, "ether").gt(ethers.utils.parseUnits(wsrugBalance, "ether"))
     ) {
-      return dispatch(error("You cannot unwrap more than your wsOHM balance."));
+      return dispatch(error("You cannot unwrap more than your wsRUG balance."));
     }
 
     await dispatch(changeWrap({ address, action, value: quantity.toString(), provider, networkID: chainID }));
@@ -115,8 +115,8 @@ function Wrap() {
 
   const hasAllowance = useCallback(
     token => {
-      if (token === "sohm") return wrapAllowance > 0;
-      if (token === "wsohm") return wrapAllowance > 0;
+      if (token === "srug") return wrapAllowance > 0;
+      if (token === "wsrug") return wrapAllowance > 0;
       return 0;
     },
     [wrapAllowance, unwrapAllowance],
@@ -139,19 +139,19 @@ function Wrap() {
   return (
     <div id="stake-view">
       <Zoom in={true} onEntered={() => setZoomed(true)}>
-        <Paper className={`ohm-card`}>
+        <Paper className={`rug-card`}>
           <Grid container direction="column" spacing={2}>
             <Grid item>
               <div className="card-header">
                 <Typography variant="h5">Wrap / Unwrap</Typography>
                 <Link
-                  className="migrate-sohm-button"
+                  className="migrate-srug-button"
                   style={{ textDecoration: "none" }}
-                  href="https://docs.olympusdao.finance/main/contracts/tokens#wsohm"
-                  aria-label="wsohm-wut"
+                  href="https://rug.farm/main/contracts/tokens#wsrug"
+                  aria-label="wsrug-wut"
                   target="_blank"
                 >
-                  <Typography>wsOHM</Typography> <SvgIcon component={InfoIcon} color="primary" />
+                  <Typography>wsRUG</Typography> <SvgIcon component={InfoIcon} color="primary" />
                 </Link>
               </div>
             </Grid>
@@ -160,12 +160,12 @@ function Wrap() {
               <div className="stake-top-metrics">
                 <Grid container spacing={2} alignItems="flex-end">
                   <Grid item xs={12} sm={4} md={4} lg={4}>
-                    <div className="wrap-sOHM">
+                    <div className="wrap-sRUG">
                       <Typography variant="h5" color="textSecondary">
-                        sOHM Price
+                        sRUG Price
                       </Typography>
                       <Typography variant="h4">
-                        {sOhmPrice ? formatCurrency(sOhmPrice, 2) : <Skeleton width="150px" />}
+                        {sRugPrice ? formatCurrency(sRugPrice, 2) : <Skeleton width="150px" />}
                       </Typography>
                     </div>
                   </Grid>
@@ -175,22 +175,22 @@ function Wrap() {
                         Current Index
                       </Typography>
                       <Typography variant="h4">
-                        {currentIndex ? <>{trim(currentIndex, 1)} OHM</> : <Skeleton width="150px" />}
+                        {currentIndex ? <>{trim(currentIndex, 1)} RUG</> : <Skeleton width="150px" />}
                       </Typography>
                     </div>
                   </Grid>
                   <Grid item xs={12} sm={4} md={4} lg={4}>
-                    <div className="wrap-wsOHM">
+                    <div className="wrap-wsRUG">
                       <Typography variant="h5" color="textSecondary">
-                        wsOHM Price
+                        wsRUG Price
                         <InfoTooltip
                           message={
-                            "wsOHM = sOHM * index\n\nThe price of wsOHM is equal to the price of OHM multiplied by the current index"
+                            "wsRUG = sRUG * index\n\nThe price of wsRUG is equal to the price of RUG multiplied by the current index"
                           }
                         />
                       </Typography>
                       <Typography variant="h4">
-                        {wsOhmPrice ? formatCurrency(wsOhmPrice, 2) : <Skeleton width="150px" />}
+                        {wsRugPrice ? formatCurrency(wsRugPrice, 2) : <Skeleton width="150px" />}
                       </Typography>
                     </div>
                   </Grid>
@@ -204,7 +204,7 @@ function Wrap() {
                   <div className="wallet-menu" id="wallet-menu">
                     {modalButton}
                   </div>
-                  <Typography variant="h6">Connect your wallet to wrap sOHM</Typography>
+                  <Typography variant="h6">Connect your wallet to wrap sRUG</Typography>
                 </div>
               ) : (
                 <>
@@ -224,20 +224,20 @@ function Wrap() {
                     </Tabs>
                     <Box className="stake-action-row " display="flex" alignItems="center">
                       {address && !isAllowanceDataLoading ? (
-                        !hasAllowance("sohm") && view === 0 ? (
+                        !hasAllowance("srug") && view === 0 ? (
                           <Box className="help-text">
                             <Typography variant="body1" className="stake-note" color="textSecondary">
                               {view === 0 && (
                                 <>
-                                  First time wrapping <b>sOHM</b>?
+                                  First time wrapping <b>sRUG</b>?
                                   <br />
-                                  Please approve Olympus Dao to use your <b>sOHM</b> for wrapping.
+                                  Please approve RuGenerous to use your <b>sRUG</b> for wrapping.
                                 </>
                               )}
                             </Typography>
                           </Box>
                         ) : (
-                          <FormControl className="ohm-input" variant="outlined" color="primary">
+                          <FormControl className="rug-input" variant="outlined" color="primary">
                             <InputLabel htmlFor="amount-input"></InputLabel>
                             <OutlinedInput
                               id="amount-input"
@@ -262,7 +262,7 @@ function Wrap() {
                       )}
 
                       <TabPanel value={view} index={0} className="stake-tab-panel">
-                        {address && hasAllowance("sohm") ? (
+                        {address && hasAllowance("srug") ? (
                           <Button
                             className="stake-button"
                             variant="contained"
@@ -272,7 +272,7 @@ function Wrap() {
                               onChangeWrap("wrap");
                             }}
                           >
-                            {txnButtonText(pendingTransactions, "wrapping", "Wrap sOHM")}
+                            {txnButtonText(pendingTransactions, "wrapping", "Wrap sRUG")}
                           </Button>
                         ) : (
                           <Button
@@ -281,7 +281,7 @@ function Wrap() {
                             color="primary"
                             disabled={isPendingTxn(pendingTransactions, "approve_wrapping")}
                             onClick={() => {
-                              onSeekApproval("sohm");
+                              onSeekApproval("srug");
                             }}
                           >
                             {txnButtonText(pendingTransactions, "approve_wrapping", "Approve")}
@@ -299,7 +299,7 @@ function Wrap() {
                             onChangeWrap("unwrap");
                           }}
                         >
-                          {txnButtonText(pendingTransactions, "unwrapping", "Unwrap sOHM")}
+                          {txnButtonText(pendingTransactions, "unwrapping", "Unwrap sRUG")}
                         </Button>
                       </TabPanel>
                     </Box>
@@ -309,13 +309,13 @@ function Wrap() {
                     <div className="data-row">
                       <Typography variant="body1">Wrappable Balance</Typography>
                       <Typography variant="body1">
-                        {isAppLoading ? <Skeleton width="80px" /> : <>{trim(sohmBalance, 4)} sOHM</>}
+                        {isAppLoading ? <Skeleton width="80px" /> : <>{trim(srugBalance, 4)} sRUG</>}
                       </Typography>
                     </div>
                     <div className="data-row">
                       <Typography variant="body1">Unwrappable Balance</Typography>
                       <Typography variant="body1">
-                        {isAppLoading ? <Skeleton width="80px" /> : <>{trim(wsohmBalance, 4)} wsOHM</>}
+                        {isAppLoading ? <Skeleton width="80px" /> : <>{trim(wsrugBalance, 4)} wsRUG</>}
                       </Typography>
                     </div>
                   </div>

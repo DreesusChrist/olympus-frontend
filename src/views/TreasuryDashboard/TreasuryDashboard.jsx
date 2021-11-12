@@ -60,7 +60,7 @@ function TreasuryDashboard() {
       setData(metrics);
 
       let staked = r.data.protocolMetrics.map(entry => ({
-        staked: (parseFloat(entry.sOhmCirculatingSupply) / parseFloat(entry.ohmCirculatingSupply)) * 100,
+        staked: (parseFloat(entry.sOhmCirculatingSupply) / parseFloat(entry.rugCirculatingSupply)) * 100,
         timestamp: entry.timestamp,
       }));
       staked = staked.filter(pm => pm.staked < 100);
@@ -91,7 +91,7 @@ function TreasuryDashboard() {
         }}
       >
         <Box className={`hero-metrics`}>
-          <Paper className="ohm-card">
+          <Paper className="rug-card">
             <Box display="flex" flexWrap="wrap" justifyContent="space-between" alignItems="center">
               <Box className="metric market">
                 <Typography variant="h6" color="textSecondary">
@@ -105,7 +105,7 @@ function TreasuryDashboard() {
 
               <Box className="metric price">
                 <Typography variant="h6" color="textSecondary">
-                  OHM Price
+                  RUG Price
                 </Typography>
                 <Typography variant="h5">
                   {/* appleseed-fix */}
@@ -115,10 +115,10 @@ function TreasuryDashboard() {
 
               <Box className="metric wsoprice">
                 <Typography variant="h6" color="textSecondary">
-                  wsOHM Price
+                  wsRUG Price
                   <InfoTooltip
                     message={
-                      "wsOHM = sOHM * index\n\nThe price of wsOHM is equal to the price of OHM multiplied by the current index"
+                      "wsRUG = sRUG * index\n\nThe price of wsRUG is equal to the price of RUG multiplied by the current index"
                     }
                   />
                 </Typography>
@@ -143,7 +143,7 @@ function TreasuryDashboard() {
 
               <Box className="metric bpo">
                 <Typography variant="h6" color="textSecondary">
-                  Backing per OHM
+                  Backing per RUG
                 </Typography>
                 <Typography variant="h5">
                   {backingPerOhm ? formatCurrency(backingPerOhm, 2) : <Skeleton type="text" />}
@@ -155,12 +155,12 @@ function TreasuryDashboard() {
                   Current Index
                   <InfoTooltip
                     message={
-                      "The current index tracks the amount of sOHM accumulated since the beginning of staking. Basically, how much sOHM one would have if they staked and held a single OHM from day 1."
+                      "The current index tracks the amount of sRUG accumulated since the beginning of staking. Basically, how much sRUG one would have if they staked and held a single RUG from day 1."
                     }
                   />
                 </Typography>
                 <Typography variant="h5">
-                  {currentIndex ? trim(currentIndex, 2) + " sOHM" : <Skeleton type="text" />}
+                  {currentIndex ? trim(currentIndex, 2) + " sRUG" : <Skeleton type="text" />}
                 </Typography>
               </Box>
             </Box>
@@ -170,7 +170,7 @@ function TreasuryDashboard() {
         <Zoom in={true}>
           <Grid container spacing={2} className="data-grid">
             <Grid item lg={6} md={6} sm={12} xs={12}>
-              <Paper className="ohm-card ohm-chart-card">
+              <Paper className="rug-card rug-chart-card">
                 <Chart
                   type="area"
                   data={data}
@@ -188,7 +188,7 @@ function TreasuryDashboard() {
             </Grid>
 
             <Grid item lg={6} md={6} sm={12} xs={12}>
-              <Paper className="ohm-card ohm-chart-card">
+              <Paper className="rug-card rug-chart-card">
                 <Chart
                   type="stack"
                   data={data}
@@ -218,7 +218,7 @@ function TreasuryDashboard() {
             </Grid>
 
             <Grid item lg={6} md={6} sm={12} xs={12}>
-              <Paper className="ohm-card ohm-chart-card">
+              <Paper className="rug-card rug-chart-card">
                 <Chart
                   type="stack"
                   data={data}
@@ -243,13 +243,13 @@ function TreasuryDashboard() {
             </Grid>
 
             <Grid item lg={6} md={6} sm={12} xs={12}>
-              <Paper className="ohm-card">
+              <Paper className="rug-card">
                 <Chart
                   type="area"
                   data={data}
                   dataKey={["treasuryOhmDaiPOL"]}
                   stopColor={[["rgba(128, 204, 131, 1)", "rgba(128, 204, 131, 0)"]]}
-                  headerText="Protocol Owned Liquidity OHM-DAI"
+                  headerText="Protocol Owned Liquidity RUG-DAI"
                   headerSubText={`${data && trim(data[0].treasuryOhmDaiPOL, 2)}% `}
                   dataFormat="percent"
                   bulletpointColors={bulletpoints.pol}
@@ -263,7 +263,7 @@ function TreasuryDashboard() {
             </Grid>
             {/*  Temporarily removed until correct data is in the graph */}
             {/* <Grid item lg={6} md={12} sm={12} xs={12}>
-              <Paper className="ohm-card">
+              <Paper className="rug-card">
                 <Chart
                   type="bar"
                   data={data}
@@ -281,13 +281,13 @@ function TreasuryDashboard() {
             </Grid> */}
 
             <Grid item lg={6} md={6} sm={12} xs={12}>
-              <Paper className="ohm-card">
+              <Paper className="rug-card">
                 <Chart
                   type="area"
                   data={staked}
                   dataKey={["staked"]}
                   stopColor={[["#55EBC7", "#47ACEB"]]}
-                  headerText="OHM Staked"
+                  headerText="RUG Staked"
                   dataFormat="percent"
                   headerSubText={`${staked && trim(staked[0].staked, 2)}% `}
                   isStaked={true}
@@ -299,7 +299,7 @@ function TreasuryDashboard() {
             </Grid>
 
             <Grid item lg={6} md={6} sm={12} xs={12}>
-              <Paper className="ohm-card">
+              <Paper className="rug-card">
                 <Chart
                   type="line"
                   scale="log"
@@ -320,7 +320,7 @@ function TreasuryDashboard() {
             </Grid>
 
             <Grid item lg={6} md={6} sm={12} xs={12}>
-              <Paper className="ohm-card">
+              <Paper className="rug-card">
                 <Chart
                   type="multi"
                   data={runway}

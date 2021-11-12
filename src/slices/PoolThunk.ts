@@ -18,7 +18,7 @@ import {
   IActionAsyncThunk,
   IJsonRPCError,
 } from "./interfaces";
-import { AwardAbi2, PrizePoolAbi, PrizePoolAbi2, SOHM } from "src/typechain";
+import { AwardAbi2, PrizePoolAbi, PrizePoolAbi2, SRUG } from "src/typechain";
 import { segmentUA } from "../helpers/userAnalyticHelpers";
 
 export const getPoolValues = createAsyncThunk(
@@ -79,7 +79,7 @@ export const changeApproval = createAsyncThunk(
     }
 
     const signer = provider.getSigner();
-    const sohmContract = new ethers.Contract(addresses[networkID].SOHM_ADDRESS, ierc20Abi, signer) as SOHM;
+    const sohmContract = new ethers.Contract(addresses[networkID].SRUG_ADDRESS, ierc20Abi, signer) as SRUG;
 
     let approveTx;
     let depositAllowance = await sohmContract.allowance(address, addresses[networkID].PT_PRIZE_POOL_ADDRESS);
